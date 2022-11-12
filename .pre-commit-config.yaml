@@ -7,3 +7,46 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: name-tests-test
+      - id: trailing-whitespace
+      - id: debug-statements
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.2.2
+    hooks:
+    -   id: pyupgrade
+        args: [--py37-plus]
+
+  - repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+      - id: black
+  - repo: https://github.com/codespell-project/codespell
+    rev: "v2.2.2"
+    hooks:
+      - id: codespell
+        args: ["-L", "sur,nd"]
+
+  - repo: local
+    hooks:
+    - id: disallow-caps
+      name: Disallow improper capitalization
+      language: pygrep
+      entry: PyBind|Numpy|Cmake|CCache|Github|PyTest
+      exclude: .pre-commit-config.yaml
+
+ci:
+    autofix_commit_msg: |
+        [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+        for more information, see https://pre-commit.ci
+    autofix_prs: true
+    autoupdate_branch: ''
+    autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+    autoupdate_schedule: weekly
+    skip: []
+    submodules: false
