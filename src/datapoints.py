@@ -6,9 +6,9 @@ import pandas as pd
 
 @dataclass
 class datapoints:
-    longitude: np.ndarray
-    latitude: np.ndarray
-    timestamp: np.ndarray
+    longitude: np.ndarray = None
+    latitude: np.ndarray = None
+    timestamp: np.ndarray = None
 
     def read_csv(self, path):
         try:
@@ -25,6 +25,8 @@ class datapoints:
                         self.longitude = df.pop(column).to_numpy()
                     elif "time" in column:
                         self.timestamp = df.pop(column).to_numpy()
+                    else:
+                        continue
             elif path.endswith(".xsl"):
                 df = pd.read_excel(path)
                 column_names = list(df.columns)
@@ -46,3 +48,57 @@ class datapoints:
             raise FileNotFoundError(
                 "File not found. Please check the path and try again"
             )
+
+    def calculate_net_distance(self):
+        """This is the haversine formula for calculating the distance between two points on a sphere.
+        This is meant to find the net total distance from start to end"""
+
+        R = 6372.8  # Earth radius in kilometers
+        distance = (
+            2
+            * R
+            * np.arcsin(
+                np.sqrt(
+                    np.sin(np.radians((self.latitude[0] - self.latitude[-1]) / 2)) ** 2
+                    + np.cos(np.radians(self.latitude[-1]))
+                    * np.cos(np.radians(self.latitude[0]))
+                    * np.sin(np.radians((self.longitude[0] - self.longitude[-1]) / 2))
+                    ** 2
+                )
+            )
+        )
+        return distance
+
+    def calculate_total_distance(self):
+        """This will be the total distance from the starting point to the end point"""
+        latitude = self.latitude
+        longitude = self.longitude
+
+        distance = 0
+        R = 6372.8  # Earth radius in kilometers
+        for index in range(len(latitude) - 1):
+            d = (
+                2
+                * R
+                * np.arcsin(
+                    np.sqrt(
+                        np.sin(
+                            np.radians(
+                                (self.latitude[index] - self.latitude[index + 1]) / 2
+                            )
+                        )
+                        ** 2
+                        + np.cos(np.radians(self.latitude[index + 1]))
+                        * np.cos(np.radians(self.latitude[index]))
+                        * np.sin(
+                            np.radians(
+                                (self.longitude[index] - self.longitude[index + 1]) / 2
+                            )
+                        )
+                        ** 2
+                    )
+                )
+            )
+            distance += d
+
+        return distance

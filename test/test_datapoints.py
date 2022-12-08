@@ -20,7 +20,7 @@ def test_read_csv():
 
     # now we will load in the csv file and check it gives the expected values
 
-    points = dp(0, 0, 0)
+    points = dp()
     points.read_csv("test.csv")
     assert len(points.latitude) != 0
     assert len(points.longitude) != 0
@@ -44,7 +44,7 @@ def test_read_csv():
 
         # now we will load in the csv file and check it gives the expected values
 
-    points = dp(0, 0, 0)
+    points = dp()
     points.read_csv("test.csv")
     assert len(points.latitude) != 0
     assert len(points.longitude) != 0
@@ -64,3 +64,37 @@ def test_read_csv():
         assert False
     except FileNotFoundError:
         assert True
+
+
+def test_calculate_net_distance():
+    with open("test.csv", "w") as f:
+        f.write("lat,long,time,random1,random2,random3\n")
+        f.write("1,2,3,4,5,6\n")
+        f.write("7,8,9,10,11,12\n")
+        f.write("13,14,15,16,17,18\n")
+        f.write("19,20,21,22,23,24\n")
+        f.write("25,26,27,28,29,30\n")
+        f.close()
+
+    points = dp()
+    points.read_csv("test.csv")
+    assert points.calculate_net_distance() - 3710 <= 1
+
+    os.remove("test.csv")
+
+
+def test_calculate_total_distance():
+    with open("test.csv", "w") as f:
+        f.write("lat,long,time,random1,random2,random3\n")
+        f.write("1,2,3,4,5,6\n")
+        f.write("7,8,9,10,11,12\n")
+        f.write("13,14,15,16,17,18\n")
+        f.write("19,20,21,22,23,24\n")
+        f.write("25,26,27,28,29,30\n")
+        f.close()
+
+    points = dp()
+    points.read_csv("test.csv")
+    assert points.calculate_total_distance() - 942.2 - 936.2 - 925.2 - 909.5 <= 1
+
+    os.remove("test.csv")
