@@ -1,7 +1,7 @@
 import geopandas as gpd
-from geopandas import GeoDataFrame
 import matplotlib.pyplot as plt
 import pandas
+from geopandas import GeoDataFrame
 from shapely.geometry import Point
 
 with open("test.csv", "w") as f:
@@ -13,13 +13,13 @@ with open("test.csv", "w") as f:
     f.write("25,26,3,28,29,30\n")
     f.close()
 
-df = pandas.read_csv("test.csv", delimiter=',', skiprows=0, low_memory=False)
+df = pandas.read_csv("test.csv", delimiter=",", skiprows=0, low_memory=False)
 
-geometry = [Point(xy) for xy in zip(df['longitude'], df['latitude'])]
-gdf = GeoDataFrame(df, geometry=geometry)   
+geometry = [Point(xy) for xy in zip(df["longitude"], df["latitude"])]
+gdf = GeoDataFrame(df, geometry=geometry)
 
-world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+world = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
 
-gdf.plot(ax=world.plot(figsize=(20, 14)), marker='o', color='red', markersize=15)
+gdf.plot(ax=world.plot(figsize=(20, 14)), marker="o", color="red", markersize=15)
 
-plt.savefig('world.pdf')
+plt.savefig("world.pdf")
