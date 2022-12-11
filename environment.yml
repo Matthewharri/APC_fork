@@ -4,6 +4,7 @@ channels:
 dependencies:
   - black
   - cattrs
+  - folium
   - geopandas
   - ipykernel >=6.0
   - ipython >=8.0
