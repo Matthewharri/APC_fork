@@ -4,11 +4,13 @@ version = "1.0.0"
 requires-python = ">=3.7"
 
 dependencies = [
+  "geopandas",
   "matplotlib",
   "numba",
   "numpy",
   "pip",
   "pandas",
+  "shapely"
 ]
 
 [project.optional-dependencies]
