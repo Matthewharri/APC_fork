@@ -10,7 +10,8 @@ dependencies = [
   "numpy",
   "pip",
   "pandas",
-  "shapely"
+  "shapely",
+  "typing"
 ]
 
 [project.optional-dependencies]

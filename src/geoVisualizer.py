@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 
-import geopandas as gpd
+import geopandas
+from geopandas import GeoDataFrame
 import matplotlib.pyplot as plt
 import pandas
-from geopandas import GeoDataFrame
 from shapely.geometry import Point
+from typing import List
 
 from datapoints import datapoints
 
@@ -12,7 +13,7 @@ from datapoints import datapoints
 @dataclass
 class geoVisualizer:
     inDataFrame: pandas.DataFrame
-    geometry: list[Point]
+    geometry: List[Point]
     geoDataFrame = GeoDataFrame
 
     def __init__(self, data: datapoints):
@@ -51,7 +52,7 @@ class geoVisualizer:
         ------
         none
         """
-        world = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+        world = geopandas.read_file(geopandas.datasets.get_path("naturalearth_lowres"))
         self.geoDataFrame.plot(
             ax=world.plot(figsize=(20, 14)), marker="o", color="red", markersize=15
         )
