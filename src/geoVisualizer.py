@@ -1,11 +1,11 @@
 from dataclasses import dataclass
+from typing import List
 
 import geopandas
-from geopandas import GeoDataFrame
 import matplotlib.pyplot as plt
 import pandas
+from geopandas import GeoDataFrame
 from shapely.geometry import Point
-from typing import List
 
 from datapoints import datapoints
 
