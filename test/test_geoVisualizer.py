@@ -4,8 +4,9 @@ from src.datapoints import datapoints
 from src.geoVisualizer import geoVisualizer
 
 
-def test_geoVisualizer():
-    """Test geoVisualizer with dummy .csv file of latitude/longitude points."""
+
+def test_geoVisualizer_datapoints():
+    """Test geoVisualizer with datapoints instance of dummy .csv file of latitude/longitude points."""
     with open("test.csv", "w") as f:
         f.write("latitude,longitude,timestamp,random1,random2,random3\n")
         f.write("1,2,3,4,5,6\n")
