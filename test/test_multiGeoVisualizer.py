@@ -1,7 +1,8 @@
 import os
 
-from src.process_csv import process_csv
 from src.multiGeoVisualizer import multiGeoVisualizer
+from src.process_csv import process_csv
+
 
 def test_multiGeoVisualizer():
     """Test array-based input."""
@@ -21,5 +22,5 @@ def test_multiGeoVisualizer():
     for plotName in plotNames:
         assert os.path.exists(plotName)
         os.remove(plotName)
-    
+
     os.remove("test.csv")

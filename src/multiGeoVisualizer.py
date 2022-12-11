@@ -10,6 +10,7 @@ from shapely.geometry import Point
 from geoVisualizer import geoVisualizer
 from process_csv import process_csv
 
+
 @dataclass
 class multiGeoVisualizer:
     nTracks: int
@@ -18,11 +19,9 @@ class multiGeoVisualizer:
     def __init__(self, inputTracks: process_csv):
         """Initialize a multiGeoVisualizer object using the process_csv class as input."""
 
-        if (len(inputTracks) == 0):
-            raise Exception(
-                "Input list has no elements!"
-            )
-        
+        if len(inputTracks) == 0:
+            raise Exception("Input list has no elements!")
+
         self.nTracks = len(inputTracks)
         print("Setting nTracks to", self.nTracks)
 
@@ -37,7 +36,7 @@ class multiGeoVisualizer:
         """
         plotNames = []
         for i in range(self.nTracks):
-            plotName = "plotTrack_{number}.pdf".format(number = i)
+            plotName = f"plotTrack_{i}.pdf"
             self.geoVisList[i].plot(plotName)
             plotNames.append(plotName)
         return plotNames
