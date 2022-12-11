@@ -3,9 +3,9 @@ import os
 from src.datapoints import datapoints
 from src.geoVisualizer import geoVisualizer
 
+
 def test_geoVisualizer():
-    """Test geoVisualizer with dummy .csv file of latitude/longitude points.
-    """
+    """Test geoVisualizer with dummy .csv file of latitude/longitude points."""
     with open("test.csv", "w") as f:
         f.write("latitude,longitude,timestamp,random1,random2,random3\n")
         f.write("1,2,3,4,5,6\n")
@@ -24,7 +24,7 @@ def test_geoVisualizer():
     myGeo.plot(outName)
 
     # Check that it exists
-    assert(os.path.exists(outName))
+    assert os.path.exists(outName)
 
     os.remove("test.csv")
     os.remove("plot.pdf")

@@ -1,39 +1,43 @@
-
 from dataclasses import dataclass
+
 import geopandas as gpd
-from geopandas import GeoDataFrame
 import matplotlib.pyplot as plt
 import pandas
+from geopandas import GeoDataFrame
 from shapely.geometry import Point
-from datapoints import datapoints 
+
+from datapoints import datapoints
+
 
 @dataclass
 class geoVisualizer:
     inDataFrame: pandas.DataFrame
-    geometry : list[Point]
+    geometry: list[Point]
     geoDataFrame = GeoDataFrame
 
     def __init__(self, data: datapoints):
-        """Initialize a geoVisualizer object using the datapoints class as input.
-        """
+        """Initialize a geoVisualizer object using the datapoints class as input."""
         if (data.latitude is None) or (data.longitude is None):
             raise Exception(
                 "Input data did not have valid latitude and longitude fields"
             )
 
-        if (len(data.latitude) != len(data.longitude)):
+        if len(data.latitude) != len(data.longitude):
             raise Exception(
                 "Number of latitude points does not match number of longitude points"
             )
 
         # Cast the datapoints class to a pandas DataFrame
-        self.inDataFrame = pandas.DataFrame({'latitude': data.latitude, 'longitude': data.longitude})
+        self.inDataFrame = pandas.DataFrame(
+            {"latitude": data.latitude, "longitude": data.longitude}
+        )
         # Use Shapely Point object to make geometry for GeoDataFrame constructor
-        self.geometry = [Point(xy) for xy in zip(self.inDataFrame['longitude'], self.inDataFrame['latitude'])]
+        self.geometry = [
+            Point(xy)
+            for xy in zip(self.inDataFrame["longitude"], self.inDataFrame["latitude"])
+        ]
         # Call GeoDataFrame constructor
-        self.geoDataFrame = GeoDataFrame(self.inDataFrame, geometry=self.geometry)  
-
-
+        self.geoDataFrame = GeoDataFrame(self.inDataFrame, geometry=self.geometry)
 
     def plot(self, outName: str):
         """Plot the lat/long points on a world map and save the plot.
@@ -47,6 +51,8 @@ class geoVisualizer:
         ------
         none
         """
-        world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
-        self.geoDataFrame.plot(ax=world.plot(figsize=(20, 14)), marker='o', color='red', markersize=15)
+        world = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+        self.geoDataFrame.plot(
+            ax=world.plot(figsize=(20, 14)), marker="o", color="red", markersize=15
+        )
         plt.savefig(outName)
