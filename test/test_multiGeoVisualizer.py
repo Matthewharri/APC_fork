@@ -18,7 +18,7 @@ def test_multiGeoVisualizer():
     separated_data = process_csv().process("test.csv")
     assert len(separated_data) == 3
 
-    plotNames = multiGeoVisualizer(separated_data).plot()
+    plotNames = multiGeoVisualizer("testAnimal", separated_data).plot()
     for plotName in plotNames:
         assert os.path.exists(plotName)
         os.remove(plotName)
