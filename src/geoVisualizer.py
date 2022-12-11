@@ -14,7 +14,9 @@ from datapoints import datapoints
 class geoVisualizer:
     inDataFrame: pandas.DataFrame
     geometry: List[Point]
-    geoDataFrame = GeoDataFrame
+    geoDataFrame: GeoDataFrame
+    totalDistance: float  # total distance of track in km
+    netDistance: float  # net distance of track in km
 
     def __init__(self, data: datapoints):
         """Initialize a geoVisualizer object using the datapoints class as input."""
@@ -27,6 +29,10 @@ class geoVisualizer:
             raise Exception(
                 "Number of latitude points does not match number of longitude points"
             )
+
+        # Get total and net distance traveled in km
+        self.totalDistance = data.calculate_total_distance()
+        self.netDistance = data.calculate_net_distance()
 
         # Cast the datapoints class to a pandas DataFrame
         self.inDataFrame = pandas.DataFrame(
