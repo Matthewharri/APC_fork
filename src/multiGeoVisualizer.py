@@ -38,5 +38,6 @@ class multiGeoVisualizer:
         for i in range(self.nTracks):
             plotName = f"plotTrack_{i}.pdf"
             self.geoVisList[i].plot(plotName)
+            print("Creating", plotName, "...")
             plotNames.append(plotName)
         return plotNames
