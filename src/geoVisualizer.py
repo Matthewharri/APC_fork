@@ -35,7 +35,7 @@ class geoVisualizer:
         # Use Shapely Point object to make geometry for GeoDataFrame constructor
         self.geometry = [
             Point(xy)
-            for xy in zip(self.inDataFrame["longitude"], self.inDataFrame["latitude"])
+            for xy in zip(self.inDataFrame["latitude"], self.inDataFrame["longitude"])
         ]
         # Call GeoDataFrame constructor
         self.geoDataFrame = GeoDataFrame(self.inDataFrame, geometry=self.geometry)
