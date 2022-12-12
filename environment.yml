@@ -24,3 +24,4 @@ dependencies:
   - shapely
   - sphinxcontrib-mermaid
   - typing
+  - wikipedia

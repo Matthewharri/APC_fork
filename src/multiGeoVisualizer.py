@@ -4,6 +4,7 @@ from typing import List
 import geopandas
 import matplotlib.pyplot as plt
 import pandas
+import wikipedia
 from geopandas import GeoDataFrame
 from shapely.geometry import Point
 
@@ -26,6 +27,8 @@ class multiGeoVisualizer:
         self.nTracks = len(inputTracks)
         self.animalName = animalName
         print("Found", self.nTracks, "tracks for", self.animalName)
+        print("From wikipedia.org: ")
+        print(wikipedia.summary("European free-tailed bats"))
 
         self.geoVisList = [geoVisualizer(track) for track in inputTracks]
 

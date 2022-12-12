@@ -11,7 +11,8 @@ dependencies = [
   "pip",
   "pandas",
   "shapely",
-  "typing"
+  "typing",
+  "wikipedia"
 ]
 
 [project.optional-dependencies]
